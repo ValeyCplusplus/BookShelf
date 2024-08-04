@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BookShelf</string>
+    <string name="googlebooksapi_key">AIzaSyBBwCXeVZTOirHyYrSn_qjShLYswkcveZg</string>
+</resources>
