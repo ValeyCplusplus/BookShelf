@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation (platform(libs.firebase.bom))
     implementation (libs.firebase.firestore.ktx)
+    implementation(libs.firebase.database.ktx)
     annotationProcessor ("com.github.bumptech.glide:compiler:4.13.0")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

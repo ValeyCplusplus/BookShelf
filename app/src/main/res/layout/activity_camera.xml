@@ -10,24 +10,6 @@
     <androidx.camera.view.PreviewView
         android:id="@+id/cameraPreview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="SCAN BARCODE"
-            android:textColor="#FFE500"
-            android:textSize="34sp"
-            android:layout_gravity="top|center_horizontal"/>
-    </androidx.camera.view.PreviewView>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/vertical_centerline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent=".50" />
-
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

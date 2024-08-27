@@ -6,29 +6,22 @@ import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.view.PreviewView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.bumptech.glide.Glide
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.ActivityResult
 import android.app.Activity
-import android.media.MediaRouter.RouteCategory
 import android.util.Log
 import android.widget.Button
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -36,9 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
-import com.google.firebase.firestore.core.UserData
 import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.toObject
 
 class MainActivity : AppCompatActivity() {
 
@@ -76,8 +67,6 @@ class MainActivity : AppCompatActivity() {
     //other
     private lateinit var currentISBN: String
     private lateinit var adapter: BookListAdapter
-    private val user = Firebase.auth.currentUser
-    private lateinit var username: String
     private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
