@@ -45,8 +45,6 @@ class Wishlist : AppCompatActivity() {
 
         //Initialize Views
         showOptionsButton = findViewById(R.id.showOptionsButton)
-        inputUsernameText = findViewById(R.id.inputUsernameText)
-        checkUsernameButton = findViewById(R.id.checkUsernameButton)
         openMenuButton = findViewById(R.id.openMenuButton)
         menu = findViewById(R.id.menu)
         menuLayout = findViewById(R.id.mainMenuLayout)
