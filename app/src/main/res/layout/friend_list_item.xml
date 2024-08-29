@@ -17,9 +17,9 @@
 
             <ImageView
                 android:id="@+id/profilePircure"
-                android:layout_width="98dp"
-                android:layout_height="132dp"
-                app:srcCompat="@drawable/no_cover" />
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                app:srcCompat="@drawable/profile" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,36 +31,15 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textSize="18sp" />
+                    android:text="Username"
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/booksCollected"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/category"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/pageCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/releaseDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    android:textSize="18sp" />
+                    android:text="Books: 600"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 

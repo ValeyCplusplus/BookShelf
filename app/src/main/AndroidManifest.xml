@@ -21,13 +21,8 @@
         tools:targetApi="31">
         <activity
             android:name=".NavigationDrawer"
-            android:exported="false" />
-        <activity
-            android:name=".CreateAccount"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppTheme.Fullscreen">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
 
@@ -35,19 +30,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".CreateAccount"
+            android:exported="false" />
+        <activity
+            android:name=".Login"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".Camera"
-            android:exported="false" />
-        <activity
-            android:name=".Friends"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"></activity>
-        <activity
-            android:name=".Wishlist"
-            android:exported="false" />
-        <activity
-            android:name=".Settings"
             android:exported="false" />
     </application>
 

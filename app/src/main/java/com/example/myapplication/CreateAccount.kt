@@ -102,7 +102,7 @@ class CreateAccount : AppCompatActivity() {
                                 }
                         }
 
-                        val intent = Intent(this@CreateAccount, MainActivity::class.java)
+                        val intent = Intent(this@CreateAccount, NavigationDrawer::class.java)
                         startActivity(intent)
                         Toast.makeText(this@CreateAccount, "Account created.", Toast.LENGTH_SHORT).show()
                     } else {

@@ -55,7 +55,7 @@ class Login : AppCompatActivity() {
         if (currentUser != null)
         {
             Toast.makeText(this, "User is logged in", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, NavigationDrawer::class.java)
             startActivity(intent)
         }
         else
@@ -76,7 +76,7 @@ class Login : AppCompatActivity() {
                         Toast.makeText(this, "User logged in successfully!", Toast.LENGTH_SHORT)
                             .show()
                         val user = auth.currentUser
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = Intent(this, NavigationDrawer::class.java)
                         startActivity(intent)
                         finish()
                     } else {
@@ -101,7 +101,7 @@ class Login : AppCompatActivity() {
                                             Toast.makeText(this, "User logged in successfully!", Toast.LENGTH_SHORT)
                                                 .show()
                                             val user = auth.currentUser
-                                            val intent = Intent(this, MainActivity::class.java)
+                                            val intent = Intent(this, NavigationDrawer::class.java)
                                             startActivity(intent)
                                             finish()
                                         } else {

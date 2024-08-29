@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".BookShelfFragment" >
 
     <TextView
         android:id="@+id/textView3"
@@ -14,33 +14,53 @@
         android:layout_marginStart="150dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="150dp"
-        android:text="Wishlist"
+        android:text="Bookshelf"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <FrameLayout
-        android:id="@+id/menu"
-        android:layout_width="314dp"
-        android:layout_height="364dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        android:background="@drawable/general_button"
-        android:elevation="5dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/friendsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-        <include
-            android:id="@+id/mainMenuLayout"
-            layout="@layout/main_menu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></include>
+        <Button
+            android:id="@+id/sortPages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pages" />
 
-    </FrameLayout>
+        <Button
+            android:id="@+id/sortAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Author" />
+
+        <Button
+            android:id="@+id/sortTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Title" />
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/booklistRecyclerView"
+        android:layout_width="416dp"
+        android:layout_height="724dp"
+
+        android:padding="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <ImageButton
         android:id="@+id/showOptionsButton"
@@ -62,13 +82,13 @@
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/general_button"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/showOptionsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/camera" />
 
     <EditText
-        android:id="@+id/inputISBN_txt"
+        android:id="@+id/inputISBN"
         style="@style/generalButton"
         android:layout_width="209dp"
         android:layout_height="60dp"
@@ -83,9 +103,9 @@
         android:inputType="number"
         android:textColor="@color/black"
         android:textColorHint="#212121"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/checkISBNButton" />
+        app:layout_constraintEnd_toStartOf="@+id/checkUsernameButton" />
 
     <ImageButton
         android:id="@+id/checkISBNButton"
@@ -95,24 +115,9 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="50dp"
         android:background="@drawable/general_button"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/showOptionsButton"
         app:srcCompat="@drawable/check" />
-
-    <ImageButton
-        android:id="@+id/openMenuButton"
-        style="@style/generalButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/general_button"
-        android:visibility="invisible"
-        app:elevation="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/checkISBNButton"
-        app:layout_constraintEnd_toStartOf="@+id/openCameraButton"
-        app:srcCompat="@drawable/menu" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,11 +13,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.Firebase
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
+import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
-import com.google.firebase.firestore.firestoreSettings
-import com.google.firebase.firestore.toObject
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
@@ -25,6 +22,7 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
 
     private val db = Firebase.firestore
     private val booksCollection = db.collection("books")
+    private val auth = Firebase.auth
 
     fun saveBook(volumeInfo: VolumeInfo)
     {
@@ -37,7 +35,9 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
             "thumbnail" to volumeInfo.thumbnail,
             "isbn" to volumeInfo.isbn    )
 
-        db.collection("books").document(volumeInfo.isbn?:"")
+        var userID = auth.currentUser?.uid?: return
+
+        db.collection("users").document(userID).collection("collectedBooks").document(volumeInfo.isbn?:"")
             .set(book)
             .addOnSuccessListener {
                 Log.d("BookListAdapter", "Book saved successfully")
@@ -50,7 +50,9 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
 
     fun loadBooks() {
         bookList.clear()
-        booksCollection.get()
+        val userID = auth.currentUser?.uid ?: return
+
+        booksCollection.document(userID).collection("collectedBooks").get()
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
                     val book = document.toObject(VolumeInfo::class.java)
@@ -65,7 +67,9 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
 
     fun deleteBook(isbn: String)
     {
-        booksCollection.document(isbn)
+        val userID = auth.currentUser?.uid ?: return
+
+        booksCollection.document(userID).collection("collectedBooks").document(isbn)
             .delete()
             .addOnSuccessListener {
                 Log.d("BookListAdapter", "Book deleted successfully")
@@ -74,12 +78,12 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
 
     class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
-        val title: TextView = itemView.findViewById(R.id.title)
-        val author: TextView = itemView.findViewById(R.id.author)
+        val title: TextView = itemView.findViewById(R.id.username)
+        val author: TextView = itemView.findViewById(R.id.booksCollected)
         val category: TextView = itemView.findViewById(R.id.category)
         val pageCount: TextView = itemView.findViewById(R.id.pageCount)
         val releaseDate: TextView = itemView.findViewById(R.id.releaseDate)
-        val thumbnail: ImageView = itemView.findViewById(R.id.thumbnail)
+        val thumbnail: ImageView = itemView.findViewById(R.id.profilePircure)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {

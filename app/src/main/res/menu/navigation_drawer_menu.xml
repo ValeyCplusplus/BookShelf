@@ -10,7 +10,7 @@
             android:icon="@drawable/friends"
             android:title="Friends" />
         <item
-            android:id="@+id/nav_whishlist"
+            android:id="@+id/nav_wishlist"
             android:icon="@drawable/wishlist"
             android:title="Whishlist" />
         <item
@@ -18,5 +18,12 @@
             android:icon="@drawable/settings"
             android:title="Settings" />
 
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/close"
+            android:title="Log Out" />
     </group>
 </menu>
