@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -52,6 +53,8 @@ class BookShelfFragment : Fragment() {
     private lateinit var adapter: BookListAdapter
     private val db = Firebase.firestore
 
+    private var navigationDrawerActivity: NavigationDrawer? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,13 +96,26 @@ class BookShelfFragment : Fragment() {
         val swipeHandler = ItemTouchHelper(BookListAdapter.SwipeToDeleteCallback(adapter))
         swipeHandler.attachToRecyclerView(recyclerView )
 
+        adapter.loadBooks()
+
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adapter.onItemDeletedListener = activity as BookListAdapter
+        .OnItemDeletedListener
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is NavigationDrawer) {
+            navigationDrawerActivity = context
+        }
     }
 
     override fun onStart() {
         super.onStart()
-
-        adapter.loadBooks()
 
         checkISBNButton.setOnClickListener()
         {
@@ -182,6 +198,8 @@ class BookShelfFragment : Fragment() {
                     {
                         adapter.saveBook(book)
                     }
+
+                    navigationDrawerActivity?.setHeaderValues()
 
                     adapter.notifyItemRangeInserted(adapter.bookList.size - bookItems.size, bookItems.size)
                 }

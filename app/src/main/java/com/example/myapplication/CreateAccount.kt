@@ -67,7 +67,7 @@ class CreateAccount : AppCompatActivity() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                selectedImageId = imageResourceIds[position]
+                selectedImageId = imageResourceIds[viewPager.currentItem]
             }
         })
         auth = Firebase.auth
@@ -89,7 +89,9 @@ class CreateAccount : AppCompatActivity() {
                         userId?.let {
                             val usernameData = hashMapOf(
                                 "userID" to it,
-                                "username" to username.text.toString()
+                                "username" to username.text.toString(),
+                                "profilePictureID" to selectedImageId,
+                                "booksCollected" to "0"
                             )
 
                             usernamesCollection.document(it)
@@ -135,7 +137,8 @@ class CreateAccount : AppCompatActivity() {
                 .await()
             if (querySnapshot.documents.isEmpty()) {
                 true // Username is available
-            } else {
+            }
+            else {
                 Toast.makeText(this, "Username is already taken", Toast.LENGTH_SHORT).show()
                 false // Username is taken
             }

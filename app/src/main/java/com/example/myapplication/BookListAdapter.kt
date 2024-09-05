@@ -24,6 +24,8 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
     private val booksCollection = db.collection("books")
     private val auth = Firebase.auth
 
+    var onItemDeletedListener: OnItemDeletedListener? = null
+
     fun saveBook(volumeInfo: VolumeInfo)
     {
         val book = hashMapOf(
@@ -45,14 +47,12 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
             .addOnFailureListener{
                 Log.w("BookListAdapter", "Error saving book", it)
             }
-
     }
 
     fun loadBooks() {
         bookList.clear()
         val userID = auth.currentUser?.uid ?: return
-
-        booksCollection.document(userID).collection("collectedBooks").get()
+            db.collection("users").document(userID).collection("collectedBooks").get()
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
                     val book = document.toObject(VolumeInfo::class.java)
@@ -61,7 +61,6 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
                     }
                 }
                 notifyDataSetChanged()
-
             }
     }
 
@@ -69,7 +68,7 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
     {
         val userID = auth.currentUser?.uid ?: return
 
-        booksCollection.document(userID).collection("collectedBooks").document(isbn)
+        db.collection("users").document(userID).collection("collectedBooks").document(isbn)
             .delete()
             .addOnSuccessListener {
                 Log.d("BookListAdapter", "Book deleted successfully")
@@ -83,7 +82,7 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
         val category: TextView = itemView.findViewById(R.id.category)
         val pageCount: TextView = itemView.findViewById(R.id.pageCount)
         val releaseDate: TextView = itemView.findViewById(R.id.releaseDate)
-        val thumbnail: ImageView = itemView.findViewById(R.id.profilePircure)
+        val thumbnail: ImageView = itemView.findViewById(R.id.bookCover)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -136,6 +135,12 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
     {
         bookList.removeAt(position)
         notifyItemRemoved(position)
+        onItemDeletedListener?.onItemDeleted()
+    }
+
+    interface OnItemDeletedListener
+    {
+        fun onItemDeleted()
     }
 
     class SwipeToDeleteCallback(private val adapter: BookListAdapter) : ItemTouchHelper
@@ -148,8 +153,9 @@ class BookListAdapter(public val bookList: MutableList<VolumeInfo>): RecyclerVie
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.adapterPosition
+            val isbnToDelete= adapter.bookList[position].isbn ?: ""
             adapter.deleteItem(position)
-            adapter.deleteBook(adapter.bookList[position].isbn?: "")
+            adapter.deleteBook(isbnToDelete)
         }
 
         override fun onChildDraw(

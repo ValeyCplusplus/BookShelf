@@ -6,4 +6,5 @@
         android:endColor="#CBABFF"
         android:type="radial"
         android:gradientRadius="600dp"/>
+
 </shape>
