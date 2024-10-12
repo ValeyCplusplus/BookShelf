@@ -44,19 +44,18 @@ class CreateAccount : AppCompatActivity() {
             insets
         }
 
-        //Initialize Views
         username = findViewById(R.id.usernameCreateAccount)
         createAccountButton = findViewById(R.id.createNewAccountButton)
         email = findViewById(R.id.emailAddressCreateAccount)
         password = findViewById(R.id.firstPasswordCreateAccount)
         confirmPassword = findViewById(R.id.repeatPasswordCreateAccount)
 
-        //Set Click Listeners
+
         createAccountButton.setOnClickListener { createAccount() }
 
         val viewPager = findViewById<ViewPager2>(R.id.profilePictureViewPager)
         val imageResourceIds = listOf(
-            R.drawable.profile_1, // Replace with your actual image resource IDs
+            R.drawable.profile_1,
             R.drawable.profile_2,
             R.drawable.profile_3
         )
@@ -75,9 +74,9 @@ class CreateAccount : AppCompatActivity() {
     }
 
     private fun createAccount() {
-        lifecycleScope.launch { // Launch a coroutine
+        lifecycleScope.launch {
             if (verifyEmail() && verifyPassword() && verifyUsername()){
-                // Now you can call verifyUsername() within the coroutine context
+
                 auth.createUserWithEmailAndPassword(
                     email.text.toString(),
                     confirmPassword.text.toString()
@@ -129,7 +128,6 @@ class CreateAccount : AppCompatActivity() {
             return false
         }
 
-        // Check if username is taken (using coroutines)
         return try {
             val querySnapshot = usernamesCollection
                 .whereEqualTo("username", enteredUsername)
@@ -143,9 +141,9 @@ class CreateAccount : AppCompatActivity() {
                 false // Username is taken
             }
         } catch (exception: Exception) {
-            // Handle the exception (e.g., log it)
+
             Toast.makeText(this, "Error checking username", Toast.LENGTH_SHORT).show()
-            false // Assume not available in case of error
+            false
         }
     }
 
@@ -168,7 +166,7 @@ class CreateAccount : AppCompatActivity() {
 
     private fun verifyEmail(): Boolean {
         val enteredEmail = email.text.toString()
-        // Basic email validation (you can add more robust checks if needed)
+
         return enteredEmail.contains("@") && enteredEmail.contains(".")
     }
 

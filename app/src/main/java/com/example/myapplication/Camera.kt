@@ -66,8 +66,6 @@ class Camera : AppCompatActivity() {
                 .also {
                     it.setSurfaceProvider(cameraPreview.surfaceProvider)
                 }
-
-            // Select back camera as a default
             val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
             val imageAnalyzer = ImageAnalysis.Builder()
@@ -76,8 +74,7 @@ class Camera : AppCompatActivity() {
                 .also {
                     it.setAnalyzer(cameraExecutor, BarcodeAnalyzer({ barcode ->
                         Log.d("Barcode", "Detected Barcode: $barcode")
-                        // You can add more logic here to handle the barcode
-                    }, this)) // Pass 'this' (Camera activity) within the same parentheses
+                    }, this))
                 }
             try {
                 // Unbind use cases before rebinding
@@ -114,7 +111,7 @@ class Camera : AppCompatActivity() {
         registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions())
         { permissions ->
-            // Handle Permission granted/rejected
+
             var permissionGranted = true
             permissions.entries.forEach {
                 if (it.key in REQUIRED_PERMISSIONS && !it.value)

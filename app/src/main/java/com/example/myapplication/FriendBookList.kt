@@ -39,7 +39,7 @@ class FriendBookList : Fragment() {
         friendBooksCollectedTextView = headerViewReference.findViewById(R.id.booksCollectedTextView)
         friendProfilePicture = headerViewReference.findViewById(R.id.profilePicture)
         db = FirebaseFirestore.getInstance()
-        bookListAdapter = BookListAdapter(mutableListOf()) // Initialize with an empty list
+        bookListAdapter = BookListAdapter(mutableListOf())
 
         friendBookList.adapter = bookListAdapter
         friendBookList.layoutManager = LinearLayoutManager(requireContext())
@@ -84,7 +84,7 @@ class FriendBookList : Fragment() {
                 .collection("collectedBooks").get().await()
 
             val bookList = booksSnapshot.documents.mapNotNull { document ->
-                // Map document to BookInfo object
+
                 VolumeInfo(
                     title = document.getString("title") ?: "Unknown Title",
                     authors = document.get("authors") as? List<String> ?: listOf("Unknown Author"),
@@ -97,8 +97,8 @@ class FriendBookList : Fragment() {
             }.toMutableList()
 
             withContext(Dispatchers.Main) {
-                bookListAdapter = BookListAdapter(bookList) // Create a new adapter
-                friendBookList.adapter = bookListAdapter // Set the new adapter to the RecyclerView
+                bookListAdapter = BookListAdapter(bookList)
+                friendBookList.adapter = bookListAdapter
             }
         } catch (e: Exception) {Log.e("FriendBookList", "Error fetching collected books", e)
         }

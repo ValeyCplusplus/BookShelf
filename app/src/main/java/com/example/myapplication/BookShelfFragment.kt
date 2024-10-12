@@ -175,7 +175,7 @@ class BookShelfFragment : Fragment() {
             val response = googleBooksAPI.searchByISBN(isbn, getString(R.string.googlebooksapi_key))
             if (response.isSuccessful) {
                 val bookSearchResult = response.body()
-                // Switch to the main thread to update UI
+
                 withContext(Dispatchers.Main) {
 
                     val bookItems = bookSearchResult?.items?.map { item ->
@@ -204,7 +204,6 @@ class BookShelfFragment : Fragment() {
                     adapter.notifyItemRangeInserted(adapter.bookList.size - bookItems.size, bookItems.size)
                 }
             } else {
-                // Handle API error, e.g., show an error message
                 withContext(Dispatchers.Main) {
                     Toast.makeText(requireActivity(), "Error fetching book details", Toast.LENGTH_SHORT).show()
                 }

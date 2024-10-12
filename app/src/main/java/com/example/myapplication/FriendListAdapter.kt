@@ -28,7 +28,7 @@ class FriendListAdapter(public val friendList: MutableList<FriendInfo>, private 
 
     fun addFriend(friend: FriendInfo) {
         friendList.add(friend)
-        notifyItemInserted(friendList.size - 1) // Notify the adapter of the new item
+        notifyItemInserted(friendList.size - 1)
     }
 
     fun saveFriend(friendInfo: FriendInfo, friendUserID: String) {
@@ -58,10 +58,10 @@ class FriendListAdapter(public val friendList: MutableList<FriendInfo>, private 
                 for (document in querySnapshot.documents) {
                     val friendId = document.id
 
-                    // Fetch user details, including profilePictureID
+
                     db.collection("users").document(friendId).get()
                         .addOnSuccessListener { userDocument ->
-                            // Now fetch booksCollected inside this listener
+
                             db.collection("users").document(friendId).collection("collectedBooks")
                                 .get()
                                 .addOnSuccessListener { booksSnapshot ->

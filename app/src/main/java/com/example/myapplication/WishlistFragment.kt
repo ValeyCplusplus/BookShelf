@@ -15,12 +15,6 @@ class WishlistFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_whislist_, container, false)
 
-
-
-
-
-
-
         return view
     }
 

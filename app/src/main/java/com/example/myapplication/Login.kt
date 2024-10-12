@@ -34,13 +34,11 @@ class Login : AppCompatActivity() {
             insets
         }
 
-        //Initialize Views
         loginButton = findViewById(R.id.loginButton)
         registerButton = findViewById(R.id.createAccountButton)
         emailOrUsername = findViewById(R.id.emailOrUsernameLogin)
         password = findViewById(R.id.PasswordLogin)
 
-        //Set Click Listeners
 
         registerButton.setOnClickListener(){openCreateAccountActivity()}
 

@@ -68,7 +68,7 @@ class FriendsFragment : Fragment(), FriendListAdapter.OnFriendClickListener {
         recyclerView.setOnClickListener {
             Log.d("FriendsFragment", "RecyclerView clicked!")
         }
-        // Inflate the layout for this fragment
+
         return view
     }
 
@@ -117,8 +117,8 @@ class FriendsFragment : Fragment(), FriendListAdapter.OnFriendClickListener {
                     friendListAdapter.saveFriend(newFriend, friendUserId)
                     withContext(Dispatchers.Main) {
                         friendListAdapter.addFriend(newFriend)
-                        friendListAdapter.notifyDataSetChanged() // Notify adapter of changes
-                        usernameInput.text.clear() // Clear input field
+                        friendListAdapter.notifyDataSetChanged()
+                        usernameInput.text.clear()
                         Toast.makeText(requireContext(), "Friend added!", Toast.LENGTH_SHORT).show()
                     }
                 } else {
@@ -148,29 +148,29 @@ class FriendsFragment : Fragment(), FriendListAdapter.OnFriendClickListener {
         val currentUserDocRef = usersCollection.document(currentUser.uid)
 
         return try{
-            // Fetch current username using coroutines
+
             val currentUsername = withContext(Dispatchers.IO) {
                 val documentSnapshot = currentUserDocRef.get().await()
                 documentSnapshot.getString("username") ?: ""
             }
 
             if (enteredUsername.equals(currentUsername, ignoreCase = true)) {
-                withContext(Dispatchers.Main) { // Show Toast on the main thread
+                withContext(Dispatchers.Main) {
                     Toast.makeText(requireActivity(), "You cannot add yourself as a friend", Toast.LENGTH_SHORT).show()
                 }
-                false // Prevent self-add
+                false
             } else {
-                // Check if username is taken (using coroutines)
+
                 val querySnapshot = usersCollection
                     .whereEqualTo("username", enteredUsername)
                     .get()
                     .await()
-                querySnapshot.documents.isNotEmpty() // True if available, false if taken
+                querySnapshot.documents.isNotEmpty()
             }
         } catch (exception: Exception) {
-            // Handle the exception (e.g., log it)
+
             Log.e("Firestore", "Error checking username", exception)
-            false // Assume not available in case of error
+            false
         }
     }
 
